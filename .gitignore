@@ -1,0 +1,5 @@
+logs/*
+keys/*
+
+# local env
+.env
