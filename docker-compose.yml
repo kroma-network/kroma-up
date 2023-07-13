@@ -9,8 +9,7 @@ x-logging: &logging
 services:
   kroma-geth:
     container_name: kroma-geth
-    # image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH:-dev-fa80ead}
-    image: wemixkanvas/geth:dev-6ec404a78abc
+    image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH:-dev-fa80ead}
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/geth.env
@@ -22,21 +21,23 @@ services:
       - 8545:8545
       - 8546:8546
       - 8551:8551
-      - "30304:30304/tcp"
-      - "30303:30303/udp"
+      - 30304:30304/tcp
+      - 30303:30303/udp
     volumes:
       - db:/.kroma/db
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
       - ./config/${NETWORK_NAME}/genesis.json:/.kroma/config/genesis.json
       - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
+    profiles:
+      - vanilla
+      - validator
     <<: *logging
 
   kroma-node:
     depends_on:
       - kroma-geth
     container_name: kroma-node
-    # image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE:-v0.2.0}
-    image: wemixkanvas/node:v0.1.1
+    image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE:-v0.2.1}
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/node.env
@@ -50,17 +51,21 @@ services:
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
       - ./config/${NETWORK_NAME}/rollup.json:/.kroma/config/rollup.json
       - ./logs:/.kroma/logs
+    profiles:
+      - vanilla
+      - validator
     <<: *logging
 
   kroma-validator:
+    depends_on:
+      - kroma-node
     container_name: kroma-validator
-    # image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR:-v0.2.0}
-    image: wemixkanvas/validator:v0.1.1
+    image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR:-v0.2.1}
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/validator.env
-    ports:
-      - 8300:7300
+    profiles:
+      - validator
     <<: *logging
 
 volumes:
