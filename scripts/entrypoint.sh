@@ -22,7 +22,7 @@ fi
 
 exec geth \
     --datadir="$GETH_DATA_DIR" \
-    --verbosity=5 \
+    --verbosity=3 \
     --http \
     --http.corsdomain="*" \
     --http.vhosts="*" \
