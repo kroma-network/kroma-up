@@ -58,17 +58,17 @@ Current minimum bonding amount is 0.1 ETH (This may change on the mainnet).
 
 ### Deposit into ValidatorPool
 ```
-docker compose exec kroma-validator kroma-validator deposit --amount <amount-wei> # must be set
+docker exec kroma-validator kroma-validator deposit --amount <amount-wei> # must be set
 ```
 
 ### Withdraw from ValidatorPool
 ```
-docker compose exec kroma-validator kroma-validator withdraw --amount <amount-wei> # must be set
+docker exec kroma-validator kroma-validator withdraw --amount <amount-wei> # must be set
 ```
 
 ### Try unbond in ValidatorPool
 ```
-docker compose exec kroma-validator kroma-validator unbond
+docker exec kroma-validator kroma-validator unbond
 ```
 
 If you're not accessing a docker container to make a deposit as above, but rather utilizing a self-contained CLI, please refer to the following guide.
