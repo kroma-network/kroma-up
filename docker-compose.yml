@@ -29,7 +29,7 @@ services:
       - ./config/${NETWORK_NAME}/genesis.json:/.kroma/config/genesis.json
       - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
     profiles:
-      - vanilla
+      - fullnode
       - validator
     <<: *logging
 
@@ -52,7 +52,7 @@ services:
       - ./config/${NETWORK_NAME}/rollup.json:/.kroma/config/rollup.json
       - ./logs:/.kroma/logs
     profiles:
-      - vanilla
+      - fullnode
       - validator
     <<: *logging
 
