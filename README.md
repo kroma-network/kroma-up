@@ -1,5 +1,5 @@
 # Run a Kroma up
-We provide an execution guide for users to operate Kroma Vanilla Node and participate in the network as a validator.
+We provide an execution guide for users to operate Kroma Full Node and participate in the network as a validator.
 
 ## Required Software
 There are tools that need to be prepared before getting started
@@ -35,11 +35,11 @@ Options are divided into required and optional, and for the optional ones we rec
 vim .env
 ```
 
-## Step 4. Start vanilla node
-The command to run a *vanilla node* is as follows (It is recommended to run it through the following command.)
+## Step 4. Start full node
+The command to run a *full node* is as follows (It is recommended to run it through the following command.)
 
 ```
-docker compose --profile vanilla up -d
+docker compose --profile fullnode up -d
 ```
 
 ## Step 5. Start validator node
@@ -78,10 +78,10 @@ If you're not accessing a docker container to make a deposit as above, but rathe
 ## Step 7. Remove 
 You can remove a running environment with the following commands
 
-### Remove vanilla node
-If you are running a vanilla node, remove it with the following command
+### Remove full node
+If you are running a full node, remove it with the following command
 ```
-docker compose --profile vanilla down -v
+docker compose --profile fullnode down -v
 ```
 
 ### Remove validator node

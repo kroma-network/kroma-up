@@ -3,7 +3,7 @@
 # Create snapshot logs directory used in kroma-node
 mkdir -p keys logs
 
-# Generate key used in kroma-vanilla(kroma-geth, kroma-node)
+# Generate key used in kroma-fullnode(kroma-geth, kroma-node)
 openssl rand -hex 32 > keys/jwt-secret.txt
 openssl rand -hex 32 > keys/p2p-node-key.txt
 
