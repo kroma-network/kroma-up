@@ -12,7 +12,7 @@ There are tools that need to be prepared before getting started
 - 200GB SSD
 - 10mb/s+ download
 
-## Step 1. Clone kroma-up
+## Step 1. Clone Kroma-up
 You need to clone the Kroma up git repository.
 
 ```
@@ -49,7 +49,7 @@ The command to run a *validator node* is as follows (It is recommended to run it
 docker compose --profile validator up -d
 ```
 
-## Step 6. Validatr deposit guide
+## Step 6. Validator deposit guide
 Provides a guide to depositing to a validator run with Docker.
 
 In order to act as a validator, you need to deposit the required bond in advance to submit your output.
