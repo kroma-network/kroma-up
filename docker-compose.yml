@@ -9,7 +9,7 @@ x-logging: &logging
 services:
   kroma-geth:
     container_name: kroma-geth
-    image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH:-dev-fa80ead}
+    image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH}
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/geth.env
@@ -37,7 +37,7 @@ services:
     depends_on:
       - kroma-geth
     container_name: kroma-node
-    image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE:-v0.2.2}
+    image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE}
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/node.env
@@ -60,7 +60,7 @@ services:
     depends_on:
       - kroma-node
     container_name: kroma-validator
-    image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR:-v0.2.2}
+    image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR}
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/validator.env
