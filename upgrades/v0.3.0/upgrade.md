@@ -19,7 +19,7 @@ After that, you need to update your `.env` file.
 
 First, update the tag of kroma-geth and kroma-node docker image
 ```
-IMAGE_TAG__KROMA_GETH=v0.2.0
+IMAGE_TAG__KROMA_GETH=v0.2.1
 IMAGE_TAG__KROMA_NODE=v0.3.0
 IMAGE_TAG__KROMA_VALIDATOR=v0.3.0
 ```
@@ -27,15 +27,6 @@ IMAGE_TAG__KROMA_VALIDATOR=v0.3.0
 ### Validator
 
 For validator, several changes have been made in validator flags.
-
-#### Added
-
-- `VALIDATOR_L2_ETH_RPC` flag, which is the RPC endpoint of L2, is added.
-To add this, add the below to your `.env` file.
-
-```
-L2_RPC_ENDPOINT=kroma-geth
-```
 
 #### Changed
 
@@ -47,9 +38,10 @@ So if you run a validator as a challenger, set `KROMA_VALIDATOR__CHALLENGER_ENAB
 Both flags are required, so you should add both to `.env` file.
 
 - `VALIDATOR_PROVER_GRPC` is changed to `VALIDATOR_PROVER_RPC` since the prover is changed to use jsonRPC, not gRPC.
+It is required to enable challenger as before.
 
 #### Deleted
 
 - `VALIDATOR_OUTPUT_SUBMITTER_BOND_AMOUNT` is deleted. 
-A fixed amount of bond amount is used for submission of output and challenge.
+A fixed amount of bond is used for submission of output and challenge.
 So you can remove this flag in your `.env` file.
