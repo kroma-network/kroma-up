@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     env_file:
       - envs/${NETWORK_NAME}/geth.env
-    entrypoint: 
+    entrypoint:
       - /bin/sh
       - /.kroma/entrypoint.sh
     ports:
@@ -25,7 +25,6 @@ services:
     profiles:
       - fullnode
       - validator
-      - validator+proxy
 
   kroma-node:
     depends_on:
@@ -48,7 +47,6 @@ services:
     profiles:
       - fullnode
       - validator
-      - validator+proxy
 
   kroma-validator:
     depends_on:
@@ -60,30 +58,6 @@ services:
       - envs/${NETWORK_NAME}/validator.env
     profiles:
       - validator
-      - validator+proxy
-  
-  kroma-prover-proxy:
-    container_name: kroma-prover-proxy
-    image: kromanetwork/prover-proxy:${IMAGE_TAG__KROMA_PROVER_PROXY}
-    restart: unless-stopped
-    env_file:
-      - envs/${NETWORK_NAME}/prover-proxy.env
-    profiles:
-      - validator
-      - validator+proxy
-  
-  # Because kroma-prover requires a lot of resources, 
-  # It is recommended to run it on a different server rather than on the same server.
-  kroma-prover:
-    container_name: kroma-prover
-    image: kromanetwork/prover:${IMAGE_TAG__KROMA_PROVER}
-    restart: unless-stopped
-    env_file:
-      - envs/${NETWORK_NAME}/prover.env
-    volumes:
-      - db:/.prover/proofs
-    profiles:
-      - prover
 
 volumes:
   db:
