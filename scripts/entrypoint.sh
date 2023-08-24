@@ -47,5 +47,5 @@ exec geth \
     --metrics \
     --metrics.addr=0.0.0.0 \
     --bootnodes="$BOOT_NODES" \
-    --circuitparams.maxtxs = 0 \
+    --circuitparams.maxtxs="0" \
     "$@"
