@@ -48,4 +48,5 @@ exec geth \
     --metrics.addr=0.0.0.0 \
     --bootnodes="$BOOT_NODES" \
     --circuitparams.maxtxs="0" \
+    --gpo.maxprice=100000000 \
     "$@"
