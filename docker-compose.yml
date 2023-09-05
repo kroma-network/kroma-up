@@ -5,6 +5,7 @@ services:
     container_name: kroma-geth
     image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/geth.env
     entrypoint:
@@ -18,7 +19,7 @@ services:
       - 30304:30304/tcp
       - 30303:30303/udp
     volumes:
-      - db:/.kroma/db
+      - db-${NETWORK_NAME}:/.kroma/db
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
       - ./config/${NETWORK_NAME}/genesis.json:/.kroma/config/genesis.json
       - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
@@ -33,6 +34,7 @@ services:
     container_name: kroma-node
     image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/node.env
     ports:
@@ -44,7 +46,6 @@ services:
       - ./keys/p2p-node-key.txt:/.kroma/keys/p2p-node-key.txt
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
       - ./config/${NETWORK_NAME}/rollup.json:/.kroma/config/rollup.json
-      - ./logs:/.kroma/logs
     profiles:
       - fullnode
       - validator
@@ -56,6 +57,7 @@ services:
     container_name: kroma-validator
     image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/validator.env
     profiles:
@@ -66,10 +68,11 @@ services:
     container_name: kroma-prover-proxy
     image: kromanetwork/prover-proxy:${IMAGE_TAG__KROMA_PROVER_PROXY}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/prover-proxy.env
     volumes:
-      - db:/.prover/proofs
+      - db-${NETWORK_NAME}:/.prover/proofs
     profiles:
       - validator+proxy
 
@@ -79,12 +82,14 @@ services:
     container_name: kroma-prover
     image: kromanetwork/prover:${IMAGE_TAG__KROMA_PROVER}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/prover.env
     volumes:
-      - db:/app/out_proof
+      - db-${NETWORK_NAME}:/app/out_proof
     profiles:
       - prover
 
 volumes:
-  db:
+  db-mainnet:
+  db-sepolia:

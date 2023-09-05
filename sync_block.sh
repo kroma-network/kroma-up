@@ -1,7 +1,21 @@
 #!/bin/bash
+NETWORK_NAME=$1
+
+# Check if proper argument is provided for network
+if [[ -z $NETWORK_NAME ]]; then
+  echo "Error: Argument not provided. Usage: $0 <network>. Allowed values are 'sepolia' or 'mainnet'."
+  exit 1
+elif [[ $NETWORK_NAME == "sepolia" ]]; then
+  SNAPSHOT_ORIGIN=https://snapshot.sepolia.kroma.network/latest/snapshot.tar.gz
+elif [[ $NETWORK_NAME == "mainnet" ]]; then
+  SNAPSHOT_ORIGIN=https://snapshot.kroma.network/latest/snapshot.tar.gz
+else
+  echo "Error: Invalid network. Allowed values are 'sepolia' or 'mainnet'."
+  exit 1
+fi
+
 KROMA_DB_PATH=/.kroma/db/geth
 SNAPSHOT_PATH=.snapshot_$(date +%s | base64 | cut -c 1-10)
-SNAPSHOT_ORIGIN=https://snapshot.sepolia.kroma.network/latest/snapshot.tar.gz
 
 mkdir -p ${SNAPSHOT_PATH}
 wget -P ./${SNAPSHOT_PATH} ${SNAPSHOT_ORIGIN}
