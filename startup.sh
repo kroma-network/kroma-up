@@ -10,8 +10,8 @@ elif [[ $NETWORK_NAME != "sepolia" && $NETWORK_NAME != "mainnet" ]]; then
     exit 1
 fi
 
-# Create snapshot logs directory used in kroma-node
-mkdir -p keys logs
+# Create a directory to manage the key information needed to operate the node.
+mkdir -p keys
 
 # Generate key used in kroma-fullnode(kroma-geth, kroma-node)
 openssl rand -hex 32 > keys/jwt-secret.txt

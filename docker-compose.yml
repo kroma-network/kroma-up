@@ -46,7 +46,6 @@ services:
       - ./keys/p2p-node-key.txt:/.kroma/keys/p2p-node-key.txt
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
       - ./config/${NETWORK_NAME}/rollup.json:/.kroma/config/rollup.json
-      - ./logs:/.kroma/logs
     profiles:
       - fullnode
       - validator
