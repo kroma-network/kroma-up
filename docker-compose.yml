@@ -5,6 +5,7 @@ services:
     container_name: kroma-geth
     image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/geth.env
     entrypoint:
@@ -33,6 +34,7 @@ services:
     container_name: kroma-node
     image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/node.env
     ports:
@@ -56,6 +58,7 @@ services:
     container_name: kroma-validator
     image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/validator.env
     profiles:
@@ -66,6 +69,7 @@ services:
     container_name: kroma-prover-proxy
     image: kromanetwork/prover-proxy:${IMAGE_TAG__KROMA_PROVER_PROXY}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/prover-proxy.env
     volumes:
@@ -79,6 +83,7 @@ services:
     container_name: kroma-prover
     image: kromanetwork/prover:${IMAGE_TAG__KROMA_PROVER}
     restart: unless-stopped
+    stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/prover.env
     volumes:
