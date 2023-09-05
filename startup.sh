@@ -3,7 +3,7 @@ NETWORK_NAME=$1
 
 # Check if proper argument is provided for network
 if [[ -z $NETWORK_NAME ]]; then
-    echo "Error: Network argument not provided. Usage: $0 <network>"
+  echo "Error: Argument not provided. Usage: $0 <network>. Allowed values are 'sepolia' or 'mainnet'."
     exit 1
 elif [[ $NETWORK_NAME != "sepolia" && $NETWORK_NAME != "mainnet" ]]; then
     echo "Error: Invalid network. Allowed values are 'sepolia' or 'mainnet'."
