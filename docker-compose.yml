@@ -19,7 +19,7 @@ services:
       - 30304:30304/tcp
       - 30303:30303/udp
     volumes:
-      - db:/.kroma/db
+      - db-${NETWORK_NAME}:/.kroma/db
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
       - ./config/${NETWORK_NAME}/genesis.json:/.kroma/config/genesis.json
       - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
@@ -73,7 +73,7 @@ services:
     env_file:
       - envs/${NETWORK_NAME}/prover-proxy.env
     volumes:
-      - db:/.prover/proofs
+      - db-${NETWORK_NAME}:/.prover/proofs
     profiles:
       - validator+proxy
 
@@ -87,9 +87,10 @@ services:
     env_file:
       - envs/${NETWORK_NAME}/prover.env
     volumes:
-      - db:/app/out_proof
+      - db-${NETWORK_NAME}:/app/out_proof
     profiles:
       - prover
 
 volumes:
-  db:
+  db-mainnet:
+  db-sepolia:
