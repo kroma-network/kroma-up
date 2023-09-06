@@ -90,6 +90,37 @@ services:
     profiles:
       - prover
 
+  prometheus:
+    container_name: kroma-prometheus
+    image: prom/prometheus
+    restart: unless-stopped
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./config/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - db-prometheus:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    profiles:
+      - monitoring
+
+  grafana:
+    container_name: kroma-grafana
+    image: grafana/grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    depends_on:
+      - prometheus
+    volumes:
+      - db-grafana:/var/lib/grafana
+      - ./config/monitoring/provisioning:/etc/grafana/provisioning
+      - ./config/monitoring/grafana.ini:/etc/grafana/grafana.ini
+    profiles:
+      - monitoring
+
 volumes:
   db-mainnet:
   db-sepolia:
+  db-prometheus:
+  db-grafana:
