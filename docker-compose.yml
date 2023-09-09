@@ -71,6 +71,8 @@ services:
     stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/prover-proxy.env
+    ports:
+      - 6000:6000
     volumes:
       - db-${NETWORK_NAME}:/.prover/proofs
     profiles:
@@ -85,6 +87,8 @@ services:
     stop_grace_period: 50s
     env_file:
       - envs/${NETWORK_NAME}/prover.env
+    ports:
+      - 3030:3030
     volumes:
       - db-${NETWORK_NAME}:/app/out_proof
     profiles:
