@@ -1,7 +1,7 @@
 # About kroma-up
 
 kroma-up is a git repository that contains all of the necessary features to run a node on Kroma.
-Kroma comprises three types of nodes: proposer, validator, and full node. Currently, validator and full nodes can be run by anyone.
+Kroma comprises three types of nodes: sequencer, validator, and full node. Currently, validator and full nodes can be run by anyone.
 
 To learn more about how to run a full node or a validator node on Kroma, please refer to the links below:
 
