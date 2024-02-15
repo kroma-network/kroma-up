@@ -27,5 +27,6 @@
   "deposit_contract_address": "0x31ab8ed993a3be9aa2757c7d368dc87101a868a4",
   "l1_system_config_address": "0x398c8ea789968893095d86cba168378a4f452e33",
   "regolith_time": 0,
-  "canyon_time": 1707897600
+  "canyon_time": 1707897600,
+  "delta_time": 1708416000
 }
