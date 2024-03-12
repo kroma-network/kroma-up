@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SNAPSHOT_ORIGIN=https://snapshot.kroma.network/latest/snapshot.tar.gz
+SNAPSHOT_ORIGIN=https://snapshot.kroma.network/rollback/snapshot.tar.gz
 KROMA_DB_PATH=/.kroma/db/geth
 SNAPSHOT_PATH=.snapshot_rollback
 
