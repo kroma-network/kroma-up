@@ -29,7 +29,11 @@ IMAGE_TAG__KROMA_VALIDATOR=v1.3.1
 
 ## Rollback the node
 
-Then, rollback the node by executing the below script. 
+First grant execution permissions.
+```bash
+chmod +x rollback.sh
+```
+Then, rollback the node by executing the below script.
 
 ```bash
 ./rollback.sh
