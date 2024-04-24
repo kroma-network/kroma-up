@@ -49,4 +49,6 @@ exec geth \
     --bootnodes="$BOOT_NODES" \
     --circuitparams.maxtxs=0 \
     --gpo.maxprice=100000000 \
+    --maxpeers=200 \
+    --snapshot=false \
     "$@"
