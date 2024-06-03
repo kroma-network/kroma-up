@@ -94,7 +94,7 @@ services:
       - -c
       - './prover-server --endpoint 0.0.0.0:3030'
     volumes:
-      - db-${NETWORK_NAME}:/app/out_proof
+      - db-${NETWORK_NAME}:/usr/src/kroma-prover/out_proof
     profiles:
       - prover
 
