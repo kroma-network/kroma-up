@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/geth.env
+      - envs/sepolia/geth.env
     entrypoint:
       - /bin/sh
       - /.kroma/entrypoint.sh
@@ -19,9 +19,9 @@ services:
       - 30304:30304/tcp
       - 30303:30303/udp
     volumes:
-      - db-${NETWORK_NAME}:/.kroma/db
+      - db-sepolia:/.kroma/db
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
-      - ./config/${NETWORK_NAME}/genesis.json:/.kroma/config/genesis.json
+      - ./config/sepolia/genesis.json:/.kroma/config/genesis.json
       - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
     profiles:
       - fullnode
@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/node.env
+      - envs/sepolia/node.env
     ports:
       - 9545:8545
       - 7300:7300
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./keys/p2p-node-key.txt:/.kroma/keys/p2p-node-key.txt
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
-      - ./config/${NETWORK_NAME}/rollup.json:/.kroma/config/rollup.json
+      - ./config/sepolia/rollup.json:/.kroma/config/rollup.json
     profiles:
       - fullnode
       - validator
@@ -59,7 +59,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/validator.env
+      - envs/sepolia/validator.env
     profiles:
       - validator
       - validator+proxy
@@ -70,11 +70,11 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/prover-proxy.env
+      - envs/sepolia/prover-proxy.env
     ports:
       - 6000:6000
     volumes:
-      - db-${NETWORK_NAME}:/.prover/proofs
+      - db-sepolia:/.prover/proofs
     profiles:
       - validator+proxy
 
@@ -86,7 +86,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/prover.env
+      - envs/sepolia/prover.env
     ports:
       - 3030:3030
     entrypoint:
@@ -129,7 +129,6 @@ services:
       - monitoring
 
 volumes:
-  db-mainnet:
   db-sepolia:
   db-prometheus:
   db-grafana:
