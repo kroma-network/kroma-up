@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/geth.env
+      - envs/mainnet/geth.env
     entrypoint:
       - /bin/sh
       - /.kroma/entrypoint.sh
@@ -19,9 +19,9 @@ services:
       - 30304:30304/tcp
       - 30303:30303/udp
     volumes:
-      - db-${NETWORK_NAME}:/.kroma/db
+      - db-mainnet:/.kroma/db
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
-      - ./config/${NETWORK_NAME}/genesis.json:/.kroma/config/genesis.json
+      - ./config/mainnet/genesis.json:/.kroma/config/genesis.json
       - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
     profiles:
       - fullnode
@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/node.env
+      - envs/mainnet/node.env
     ports:
       - 9545:8545
       - 7300:7300
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./keys/p2p-node-key.txt:/.kroma/keys/p2p-node-key.txt
       - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
-      - ./config/${NETWORK_NAME}/rollup.json:/.kroma/config/rollup.json
+      - ./config/mainnet/rollup.json:/.kroma/config/rollup.json
     profiles:
       - fullnode
       - validator
@@ -59,7 +59,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/validator.env
+      - envs/mainnet/validator.env
     profiles:
       - validator
       - validator+proxy
@@ -70,11 +70,11 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/prover-proxy.env
+      - envs/mainnet/prover-proxy.env
     ports:
       - 6000:6000
     volumes:
-      - db-${NETWORK_NAME}:/.prover/proofs
+      - db-mainnet:/.prover/proofs
     profiles:
       - validator+proxy
 
@@ -86,7 +86,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/${NETWORK_NAME}/prover.env
+      - envs/mainnet/prover.env
     ports:
       - 3030:3030
     entrypoint:
@@ -94,7 +94,8 @@ services:
       - -c
       - './prover-server --endpoint 0.0.0.0:3030'
     volumes:
-      - db-${NETWORK_NAME}:/app/out_proof
+      - ./data:/usr/src/kroma-prover/out_proof
+      - ./params/kzg_params:/usr/src/kroma-prover/kzg_params
     profiles:
       - prover
 
@@ -129,6 +130,5 @@ services:
 
 volumes:
   db-mainnet:
-  db-sepolia:
   db-prometheus:
   db-grafana:
