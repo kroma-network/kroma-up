@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   kroma-geth:
     container_name: kroma-geth
