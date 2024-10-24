@@ -5,8 +5,8 @@ Kroma comprises three types of nodes: sequencer, validator, and full node. Curre
 
 To learn more about how to run a full node or a validator node on Kroma, please refer to the links below:
 
-- [Overall Guide on Running Nodes on Kroma](https://docs.kroma.network/developers/running-nodes-on-kroma)
-    - [How to run a full node](https://docs.kroma.network/developers/running-nodes-on-kroma/running-a-full-node)
-    - [How to run a validator node](https://docs.kroma.network/developers/running-nodes-on-kroma/running-a-validator-node)
-    - [How to sync blocks using a snapshot](https://docs.kroma.network/developers/running-nodes-on-kroma/how-to-sync-blocks-using-a-snapshot)
-    - [FAQ](https://docs.kroma.network/developers/running-nodes-on-kroma/faq)
+- [Overall Guide on Running Nodes on Kroma](https://docs.kroma.network/builders/node-operators)
+    - [How to run a full node](https://docs.kroma.network/builders/node-operators/running-a-full-node)
+    - [How to run a validator node](https://docs.kroma.network/builders/node-operators/running-a-kroma-v2-validator-node)
+    - [How to sync blocks using a snapshot](https://docs.kroma.network/builders/node-operators/how-to-sync-blocks-using-a-snapshot)
+    - [FAQ](https://docs.kroma.network/builders/node-operators/faq)
