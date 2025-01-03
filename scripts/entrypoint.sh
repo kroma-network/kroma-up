@@ -11,6 +11,7 @@ RPC_PORT="${RPC_PORT:-8545}"
 WS_PORT="${WS_PORT:-8546}"
 JWT_SECRET_PATH="${JWT_SECRET_PATH:-$KROMA_PATH/keys/jwt-secret.txt}"
 BOOT_NODES=${BOOT_NODES}
+HISTORICAL_RPC=${HISTORICAL_RPC}
 
 if [ ! -d "$GETH_CHAINDATA_DIR" ]; then
   echo "$GETH_CHAINDATA_DIR missing, running init"
@@ -18,6 +19,10 @@ if [ ! -d "$GETH_CHAINDATA_DIR" ]; then
   geth --verbosity="$VERBOSITY" init --datadir="$GETH_DATA_DIR" "$GENESIS_FILE_PATH"
 else
   echo "$GETH_CHAINDATA_DIR exists."
+fi
+
+if [ "${DISABLE_MIGRATION:-}" = "true" ]; then
+  export EXTENDED_ARG="${EXTENDED_ARG:-} --kroma.migration.disable=true"
 fi
 
 exec geth \
@@ -51,4 +56,6 @@ exec geth \
     --gpo.maxprice=100000000 \
     --maxpeers=200 \
     --snapshot=false \
+    --rollup.historicalrpc=${HISTORICAL_RPC} \
+    $EXTENDED_ARG \
     "$@"
