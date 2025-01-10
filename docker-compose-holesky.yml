@@ -1,0 +1,156 @@
+services:
+  kroma-geth:
+    container_name: kroma-geth
+    image: kromanetwork/geth:${IMAGE_TAG__KROMA_GETH}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/geth.env
+    entrypoint:
+      - /bin/sh
+      - /.kroma/entrypoint.sh
+    ports:
+      - 6060:6060
+      - 8545:8545
+      - 8546:8546
+      - 8551:8551
+      - 30304:30304/tcp
+      - 30303:30303/udp
+    volumes:
+      - db-sepolia:/.kroma/db
+      - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
+      - ./config/sepolia/genesis.json:/.kroma/config/genesis.json
+      - ./scripts/entrypoint.sh:/.kroma/entrypoint.sh
+    profiles:
+      - fullnode
+      - validator
+      - validator+proxy
+
+  kroma-node:
+    depends_on:
+      - kroma-geth
+    container_name: kroma-node
+    image: kromanetwork/node:${IMAGE_TAG__KROMA_NODE}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/node.env
+    ports:
+      - 9545:8545
+      - 7300:7300
+      - 9003:9003/tcp
+      - 9003:9003/udp
+    volumes:
+      - ./keys/p2p-node-key.txt:/.kroma/keys/p2p-node-key.txt
+      - ./keys/jwt-secret.txt:/.kroma/keys/jwt-secret.txt
+      - ./config/sepolia/rollup.json:/.kroma/config/rollup.json
+    profiles:
+      - fullnode
+      - validator
+      - validator+proxy
+
+  kroma-validator:
+    depends_on:
+      - kroma-node
+    container_name: kroma-validator
+    image: kromanetwork/validator:${IMAGE_TAG__KROMA_VALIDATOR}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/validator.env
+    profiles:
+      - validator
+      - validator+proxy
+
+  kroma-zkevm-prover-proxy:
+    container_name: kroma-prover-proxy
+    image: kromanetwork/prover-proxy:${IMAGE_TAG__KROMA_PROVER_PROXY}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/prover-proxy.env
+    ports:
+      - 6000:6000
+    volumes:
+      - db-sepolia:/.prover/proofs
+    profiles:
+      - validator+proxy
+
+  # Because kroma-prover requires a lot of resources,
+  # It is recommended to run it on a different server rather than on the same server.
+  kroma-zkevm-prover:
+    container_name: kroma-prover
+    image: kromanetwork/prover:${IMAGE_TAG__KROMA_PROVER}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/prover.env
+    ports:
+      - 3030:3030
+    entrypoint:
+      - /bin/sh
+      - -c
+      - './prover-server --endpoint 0.0.0.0:3030'
+    volumes:
+      - ./data:/usr/src/kroma-prover/out_proof
+      - ./params/kzg_params:/usr/src/kroma-prover/kzg_params
+    profiles:
+      - prover
+
+  sp1-witness-gen:
+    container_name: sp1-witness-gen
+    image: ayaanlight/witness-gen:${IMAGE_TAG__SP1_WITNESS_GEN}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/sp1-witness-gen.env
+    ports:
+      - 3030:3030
+    profiles:
+      - validator+proxy
+
+  sp1-prover-proxy:
+    container_name: sp1-prover-proxy
+    image: ayaanlight/prover-proxy:${IMAGE_TAG__SP1_PROVER_PROXY}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/holesky/sp1-prover-proxy.env
+    ports:
+      - 3031:3031
+    profiles:
+      - validator+proxy
+
+  prometheus:
+    container_name: kroma-prometheus
+    image: prom/prometheus
+    restart: unless-stopped
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./config/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - db-prometheus:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    profiles:
+      - monitoring
+
+  grafana:
+    container_name: kroma-grafana
+    image: grafana/grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    depends_on:
+      - prometheus
+    volumes:
+      - db-grafana:/var/lib/grafana
+      - ./config/monitoring/provisioning:/etc/grafana/provisioning
+      - ./config/monitoring/grafana.ini:/etc/grafana/grafana.ini
+    profiles:
+      - monitoring
+
+volumes:
+  db-sepolia:
+  db-prometheus:
+  db-grafana:
