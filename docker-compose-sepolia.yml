@@ -103,7 +103,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/holesky/sp1-witness-gen.env
+      - envs/sepolia/sp1-witness-gen.env
     ports:
       - 3030:3030
     profiles:
@@ -115,7 +115,7 @@ services:
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
-      - envs/holesky/sp1-prover-proxy.env
+      - envs/sepolia/sp1-prover-proxy.env
     ports:
       - 3031:3031
     profiles:
