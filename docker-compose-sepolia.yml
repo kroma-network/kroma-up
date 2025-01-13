@@ -97,6 +97,30 @@ services:
     profiles:
       - prover
 
+  sp1-witness-gen:
+    container_name: sp1-witness-gen
+    image: kromanetwork/sp1-wit-gen:${IMAGE_TAG__SP1_WITNESS_GEN}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/sepolia/sp1-witness-gen.env
+    ports:
+      - 3030:3030
+    profiles:
+      - validator+proxy
+
+  sp1-prover-proxy:
+    container_name: sp1-prover-proxy
+    image: kromanetwork/zkvm-prover-proxy:${IMAGE_TAG__SP1_PROVER_PROXY}
+    restart: unless-stopped
+    stop_grace_period: 50s
+    env_file:
+      - envs/sepolia/sp1-prover-proxy.env
+    ports:
+      - 3031:3031
+    profiles:
+      - validator+proxy
+
   prometheus:
     container_name: kroma-prometheus
     image: prom/prometheus
