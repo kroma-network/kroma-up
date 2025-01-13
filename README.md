@@ -9,4 +9,5 @@ To learn more about how to run a full node or a validator node on Kroma, please 
     - [How to run a full node](https://docs.kroma.network/builders/node-operators/running-a-full-node)
     - [How to run a validator node](https://docs.kroma.network/builders/node-operators/running-a-kroma-v2-validator-node)
     - [How to sync blocks using a snapshot](https://docs.kroma.network/builders/node-operators/how-to-sync-blocks-using-a-snapshot)
+    - [How to migrate to Kroma MPT](https://docs.kroma.network/builders/node-operators/kroma-mpt-migration-guide)
     - [FAQ](https://docs.kroma.network/builders/node-operators/faq)
