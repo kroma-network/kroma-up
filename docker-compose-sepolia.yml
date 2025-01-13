@@ -99,7 +99,7 @@ services:
 
   sp1-witness-gen:
     container_name: sp1-witness-gen
-    image: zkp/witness-gen:${IMAGE_TAG__SP1_WITNESS_GEN}
+    image: kromanetwork/sp1-wit-gen:${IMAGE_TAG__SP1_WITNESS_GEN}
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
@@ -111,7 +111,7 @@ services:
 
   sp1-prover-proxy:
     container_name: sp1-prover-proxy
-    image: zkp/prover-proxy:${IMAGE_TAG__SP1_PROVER_PROXY}
+    image: kromanetwork/zkvm-prover-proxy:${IMAGE_TAG__SP1_PROVER_PROXY}
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
