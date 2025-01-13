@@ -56,6 +56,7 @@ exec geth \
     --gpo.maxprice=100000000 \
     --maxpeers=200 \
     --snapshot=false \
+    --override.mpt=2737090000 \
     --rollup.historicalrpc=${HISTORICAL_RPC} \
     $EXTENDED_ARG \
     "$@"

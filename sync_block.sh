@@ -6,7 +6,7 @@ if [[ -z $NETWORK_NAME ]]; then
   echo "Error: Argument not provided. Usage: $0 <network>. Allowed values are 'sepolia' or 'mainnet'."
   exit 1
 elif [[ $NETWORK_NAME == "sepolia" ]]; then
-  SNAPSHOT_ORIGIN=https://snapshot.sepolia.kroma.network/latest/snapshot.tar.gz
+  SNAPSHOT_ORIGIN=https://snapshot.sepolia.kroma.network/2015-01-14/snapshot.tar.gz
 elif [[ $NETWORK_NAME == "mainnet" ]]; then
   SNAPSHOT_ORIGIN=https://snapshot.kroma.network/latest/snapshot.tar.gz
 else
