@@ -21,6 +21,10 @@ else
   echo "$GETH_CHAINDATA_DIR exists."
 fi
 
+if [ -n "${HISTORICAL_RPC:-}" ]; then
+  export EXTENDED_ARG="${EXTENDED_ARG:-} --rollup.historicalrpc=${HISTORICAL_RPC}"
+fi
+
 if [ "${DISABLE_MIGRATION:-}" = "true" ]; then
   export EXTENDED_ARG="${EXTENDED_ARG:-} --kroma.migration.disable=true"
 fi
@@ -56,6 +60,5 @@ exec geth \
     --gpo.maxprice=100000000 \
     --maxpeers=200 \
     --snapshot=false \
-    --rollup.historicalrpc=${HISTORICAL_RPC} \
     ${EXTENDED_ARG:-} \
     "$@"
