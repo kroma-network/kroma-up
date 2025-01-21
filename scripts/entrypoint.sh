@@ -57,5 +57,5 @@ exec geth \
     --maxpeers=200 \
     --snapshot=false \
     --rollup.historicalrpc=${HISTORICAL_RPC} \
-    $EXTENDED_ARG \
+    ${EXTENDED_ARG:-} \
     "$@"
