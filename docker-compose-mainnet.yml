@@ -64,7 +64,7 @@ services:
 
   kroma-prover-proxy:
     container_name: kroma-prover-proxy
-    image: kromanetwork/prover-proxy:${IMAGE_TAG__KROMA_PROVER_PROXY}
+    image: kromanetwork/prover-proxy:${IMAGE_TAG__KROMA_ZKEVM_PROVER_PROXY}
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
@@ -80,7 +80,7 @@ services:
   # It is recommended to run it on a different server rather than on the same server.
   kroma-prover:
     container_name: kroma-prover
-    image: kromanetwork/prover:${IMAGE_TAG__KROMA_PROVER}
+    image: kromanetwork/prover:${IMAGE_TAG__ZKEVM_KROMA_PROVER}
     restart: unless-stopped
     stop_grace_period: 50s
     env_file:
